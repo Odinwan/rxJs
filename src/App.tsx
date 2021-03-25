@@ -1,9 +1,16 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import reducer from "./reducer";
 import axios from "axios";
 import CardWrapper from "./components/Card/CardWrapper";
+import SimpleExample from "./components/FirstExamples/SimpleExample";
+import RxExample from "./components/FirstExamples/RxExample";
+import AnyButton from "./components/FirstExamples/anyButton";
 
 const App = () => {
+
+     const [A, setA] = useState<string>("");
+     const [B, setB] = useState<string>("");
+     const [C, setC] = useState<string>("");
 
     /**
      Создаем центральный стор в котором мы будем хранить фильмы которые получили при первом заходе на страницу
@@ -13,8 +20,9 @@ const App = () => {
         movies: [],
     });
 
+
     /**
-    Получаем данные с сервера перед первым рендером приложения
+     Получаем данные с сервера перед первым рендером приложения
      */
     useEffect(() => {
         getData();
@@ -38,9 +46,25 @@ const App = () => {
     /**
      Рендер карточек через обертку
      */
-    return <div style={{display: "flex", justifyContent: "space-evenly", padding: 20,alignItems: "flex-start"}}>
-        <CardWrapper items={state.movies}/>
-    </div>;
+    return <>
+        <div style={{display:'block'}}>
+            <SimpleExample/>
+            {/*<SimpleExample*/}
+            {/*    A={A}*/}
+            {/*    B={B}*/}
+            {/*    C={C}*/}
+            {/*    setA={setA}*/}
+            {/*    setC={setC}*/}
+            {/*    setB={setB}*/}
+            {/*/>*/}
+            <RxExample/>
+            <AnyButton setA={setA} A={A} />
+        </div>
+        <div style={{display: "flex",justifyContent: "space-evenly", padding: 20, alignItems: "flex-start",marginTop:1000}}>
+            <CardWrapper items={state.movies}/>
+        </div>
+    </>;
+
 };
 
 export default App;

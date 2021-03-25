@@ -1,13 +1,13 @@
 import React, {useState} from "react";
 import {Movie} from "../../interfaces";
 import axios from "axios";
+import {movieService} from "./stream";
 
 /**
 Интерфейс карточки
  */
 interface CardProps {
     item: Movie
-    setMovie: (item: Movie) => void
 }
 
 /**
@@ -18,7 +18,7 @@ const Card = (props: CardProps) => {
     /**
      Некий стейт для отрисовки компонента
      */
-    const [titleValue, setTitleValue] = useState( props.item.title);
+    const [titleValue, setTitleValue] = useState(props.item.title);
     const [rateValue, setRateValue] = useState(props.item.rate.toString());
     const [edit, setEdit] = useState(false);
 
@@ -32,9 +32,8 @@ const Card = (props: CardProps) => {
             title: titleValue,
             image: props.item.image,
         };
-        props.setMovie(newMovie);
+        movieService.storeMovie(newMovie);
         setEdit(!edit);
-        await axios.post('/post', newMovie)
     };
 
     /**
